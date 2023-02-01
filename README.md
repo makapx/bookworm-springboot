@@ -22,6 +22,15 @@ Launch your application:
 mvn spring-boot:run
 ```
 
+## Docker
+
+Launch your application with Docker:
+
+```bash
+docker-compose up -d
+```
+
+The web site will be available at http://localhost:8081.
 
 ## About
 
