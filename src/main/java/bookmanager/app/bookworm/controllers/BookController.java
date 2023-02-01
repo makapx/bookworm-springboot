@@ -24,11 +24,17 @@ public class BookController {
     }
 
     @GetMapping
+    public String allBooks(Model model) {
+        model.addAttribute("books", bookRepository.findAll());
+        return "book"; // Invoke ThymeLeaf template
+    }
+
+    @GetMapping("/add")
     public String bookForm(Model model) {
         model.addAttribute("book", new Book());
         model.addAttribute("authors", authorRepository.findAll());
         model.addAttribute("genres", genreRepository.findAll());
-        return "book"; // Invoke ThymeLeaf template
+        return "addBook"; // Invoke ThymeLeaf template
     }
 
     @PostMapping

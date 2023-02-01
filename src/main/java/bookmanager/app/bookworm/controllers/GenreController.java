@@ -16,9 +16,15 @@ public class GenreController {
     }
 
     @GetMapping
-    public String authorForm(Model model) {
-        model.addAttribute("genre", new Genre());
+    public String allGenres(Model model) {
+        model.addAttribute("genres", genreRepository.findAll());
         return "genre"; // Invoke ThymeLeaf template
+    }
+
+    @GetMapping("/add")
+    public String genreForm(Model model) {
+        model.addAttribute("genre", new Genre());
+        return "addGenre"; // Invoke ThymeLeaf template
     }
 
     @PostMapping

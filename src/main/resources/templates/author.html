@@ -2,16 +2,35 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Author</title>
+    <title>Bookworm - All authors</title>
 </head>
 <body>
-    <h1>Insert an author</h1>
-    <form action="#" th:action="@{/author}" th:object="${author}" method="post">
-        <label for="name">Name</label>
-        <input type="text" id="name" th:field="*{name}"/>
-        <input type="submit" value="Submit"/>
-    </form>
+    <h1>Bookworm - All authors</h1>
+    <p><a href="/">Home</a></p>
+    <p><a href="/author/add">Add author</a></p>
+    <div th:if="${#lists.size(authors)}">
+        <table >
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="author : ${authors}">
+                    <td th:text="${author.name}"></td>
+                    <td>
+                        <a th:href="@{/author/{id}(id=${author.id})}">View</a>
+                        <a th:href="@{/author/{id}/edit(id=${author.id})}">Edit</a>
+                        <a th:href="@{/author/{id}/delete(id=${author.id})}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <a href="/">Home</a>
+    <div th:unless="${#lists.size(authors)}">
+        <p>No authors found.</p>
+    </div>
 </body>
 </html>

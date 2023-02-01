@@ -2,32 +2,44 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Books</title>
+    <title>Bookworm - All books </title>
 </head>
 <body>
-    <h1>Books</h1>
-    <form action="#" th:action="@{/book}" th:object="${book}" method="post">
-        <p>Title: <input type="text" th:field="*{title}" /></p>
-        <p>Author:
-            <select th:field="*{author}">
-                <option th:value="null">Select author</option>
-                <option
-                th:each="author : ${authors}"
-                th:value="${author.id}"
-                th:text="${author.name}">
-            </select>
-        </p>
-        <p>ISBN: <input type="text" th:field="*{isbn}" /></p>
-        <p>Genre:
-            <select th:field="*{genre}">
-            <option th:value="null">Select genre</option>
-            <option
-            th:each="genre : ${genres}"
-            th:value="${genre.id}"
-            th:text="${genre.name}">
-        </select></p>
-        <p>Description: <input type="text" th:field="*{description}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+    <h1>Bookworm - All books</h1>
+    <p><a href="/">Home</a></p>
+    <p><a href="/book/add">Add book</a></p>
+    <div th:if="${#lists.size(books)}">
+        <table >
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>Genre</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.author.name}"></td>
+                    <td th:text="${book.isbn}"></td>
+                    <td th:text="${book.genre.name}"></td>
+                    <td th:text="${book.description}"></td>
+                    <td>
+                        <a th:href="@{/book/{id}(id=${book.id})}">View</a>
+                        <a th:href="@{/book/{id}/edit(id=${book.id})}">Edit</a>
+                        <a th:href="@{/book/{id}/delete(id=${book.id})}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:unless="${#lists.size(books)}">
+        <p>No books found.</p>
+    </div>
+
 </body>
 </html>

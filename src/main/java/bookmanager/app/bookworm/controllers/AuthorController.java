@@ -16,9 +16,15 @@ public class AuthorController {
     }
 
     @GetMapping
+    public String allAuthors(Model model) {
+        model.addAttribute("authors", authorRepository.findAll());
+        return "author"; // Invoke ThymeLeaf template
+    }
+
+    @GetMapping("/add")
     public String authorForm(Model model) {
         model.addAttribute("author", new Author());
-        return "author"; // Invoke ThymeLeaf template
+        return "addAuthor"; // Invoke ThymeLeaf template
     }
 
     @PostMapping

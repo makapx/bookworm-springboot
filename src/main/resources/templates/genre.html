@@ -2,13 +2,35 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Genres</title>
+    <title>Bookworm - All genres </title>
 </head>
 <body>
-    <h1>Genres</h1>
-    <form action="#" th:action="@{/genre}" th:object="${genre}" method="post">
-        <p>Name: <input type="text" th:field="*{name}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+    <h1>Bookworm - All genres</h1>
+    <p><a href="/">Home</a></p>
+    <p><a href="/genre/add">Add genre</a></p>
+    <div th:if="${#lists.size(genres)}">
+        <table >
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="genre : ${genres}">
+                    <td th:text="${genre.name}"></td>
+                    <td>
+                        <a th:href="@{/genre/{id}(id=${genre.id})}">View</a>
+                        <a th:href="@{/genre/{id}/edit(id=${genre.id})}">Edit</a>
+                        <a th:href="@{/genre/{id}/delete(id=${genre.id})}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:unless="${#lists.size(genres)}">
+        <p>No genres found.</p>
+    </div>
 </body>
 </html>
