@@ -22,14 +22,17 @@ public class Book {
     @ManyToOne
     @JoinColumn(name="author_id", nullable=false)
     private Author author;
-    private String genre;
+
+    @ManyToOne
+    @JoinColumn(name="genre_id", nullable=false)
+    private Genre genre;
     private String description;
     private String isbn;
 
     public Book() {
     }
 
-    public Book(String title, Author author, String genre, String description, String isbn) {
+    public Book(String title, Author author, Genre genre, String description, String isbn) {
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -61,11 +64,11 @@ public class Book {
         this.author = author;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genre genre) {
         this.genre = genre;
     }
 

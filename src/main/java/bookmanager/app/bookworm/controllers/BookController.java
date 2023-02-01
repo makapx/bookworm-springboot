@@ -7,22 +7,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import bookmanager.app.bookworm.data.AuthorRepository;
+import bookmanager.app.bookworm.data.GenreRepository;
 
 @Controller
 @RequestMapping("/book")
 public class BookController {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
+    private final GenreRepository genreRepository;
 
-    public BookController(BookRepository bookRepository, AuthorRepository authorRepository) {
+    public BookController(BookRepository bookRepository,
+        AuthorRepository authorRepository, GenreRepository genreRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
+        this.genreRepository = genreRepository;
     }
 
     @GetMapping
     public String bookForm(Model model) {
         model.addAttribute("book", new Book());
         model.addAttribute("authors", authorRepository.findAll());
+        model.addAttribute("genres", genreRepository.findAll());
         return "book"; // Invoke ThymeLeaf template
     }
 

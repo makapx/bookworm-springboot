@@ -18,7 +18,14 @@
             </select>
         </p>
         <p>ISBN: <input type="text" th:field="*{isbn}" /></p>
-        <p>Genre: <input type="text" th:field="*{genre}" /></p>
+        <p>Genre:
+            <select th:field="*{genre}">
+            <option th:value="null">Select genre</option>
+            <option
+            th:each="genre : ${genres}"
+            th:value="${genre.id}"
+            th:text="${genre.name}">
+        </select></p>
         <p>Description: <input type="text" th:field="*{description}" /></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
