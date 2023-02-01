@@ -8,7 +8,15 @@
     <h1>Books</h1>
     <form action="#" th:action="@{/book}" th:object="${book}" method="post">
         <p>Title: <input type="text" th:field="*{title}" /></p>
-        <p>Author: <input type="text" th:field="*{author}" /></p>
+        <p>Author:
+            <select th:field="*{author}">
+                <option th:value="null">Select author</option>
+                <option
+                th:each="author : ${authors}"
+                th:value="${author.id}"
+                th:text="${author.name}">
+            </select>
+        </p>
         <p>ISBN: <input type="text" th:field="*{isbn}" /></p>
         <p>Genre: <input type="text" th:field="*{genre}" /></p>
         <p>Description: <input type="text" th:field="*{description}" /></p>

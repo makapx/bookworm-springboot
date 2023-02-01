@@ -3,17 +3,25 @@ package bookmanager.app.bookworm.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+
+import jakarta.persistence.Table;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+
 /**
  * Book
  * 
  */
 @Entity
+@Table(name="book")
 public class Book {
     @Id
     @GeneratedValue
     private long id;
     private String title;
-    private String author;
+    @ManyToOne
+    @JoinColumn(name="author_id", nullable=false)
+    private Author author;
     private String genre;
     private String description;
     private String isbn;
@@ -21,7 +29,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String author, String genre, String description, String isbn) {
+    public Book(String title, Author author, String genre, String description, String isbn) {
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -45,11 +53,11 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
